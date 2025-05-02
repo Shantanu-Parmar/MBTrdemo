@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Video Comparison Viewer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    video {
+      width: 100%;
+      max-height: 320px;
+      object-fit: contain;
+      background-color: black;
+    }
+    h2 {
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 p-4">
+
+  <!-- Sticky Control Bar -->
+  <div class="sticky top-0 bg-white shadow-md z-10 p-4 flex flex-col sm:flex-row items-center gap-4 justify-center mb-6">
+    <button id="playAll" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">Play All</button>
+    <button id="pauseAll" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Pause All</button>
+    <div class="flex items-center gap-2 w-64">
+      <label for="globalSpeed" class="whitespace-nowrap">Speed:</label>
+      <input type="range" id="globalSpeed" min="0.25" max="2" step="0.25" value="1" class="w-full">
+    </div>
+  </div>
+
+  <h1 class="text-3xl font-bold mb-6 text-center">Model Output Comparison</h1>
+
+  <!-- Multi Scene Section -->
+  <section>
+    <h2 class="text-xl font-semibold mb-2">Multi Scene</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <video src="Videos/all-converted.mp4" autoplay loop muted></video>
+      <video src="Videos/nanoall-converted.mp4" autoplay loop muted></video>
+      <video src="Videos/PPYoloall-converted.mp4" autoplay loop muted></video>
+    </div>
+  </section>
+
+  <!-- Input Section -->
+  <section>
+    <h2 class="text-xl font-semibold mb-2">Input</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <video src="Videos/im1.mp4" autoplay loop muted></video>
+      <video src="Videos/im2.mp4" autoplay loop muted></video>
+      <video src="Videos/im3.mp4" autoplay loop muted></video>
+      <video src="Videos/im4.mp4" autoplay loop muted></video>
+    </div>
+  </section>
+
+  <!-- SSD Section -->
+  <section>
+    <h2 class="text-xl font-semibold mb-2">SSD</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <video src="Videos/SSDim1.mp4" autoplay loop muted></video>
+      <video src="Videos/SSDim2.mp4" autoplay loop muted></video>
+      <video src="Videos/SSDim3.mp4" autoplay loop muted></video>
+      <video src="Videos/SSDim4.mp4" autoplay loop muted></video>
+    </div>
+  </section>
+
+  <!-- NanoDet Section -->
+  <section>
+    <h2 class="text-xl font-semibold mb-2">NanoDet</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <video src="Videos/nanoim1-converted.mp4" autoplay loop muted></video>
+      <video src="Videos/nanoim2-converted.mp4" autoplay loop muted></video>
+      <video src="Videos/nanoim3-converted.mp4" autoplay loop muted></video>
+      <video src="Videos/nanoim4-converted.mp4" autoplay loop muted></video>
+    </div>
+  </section>
+
+  <!-- PP-YOLO Section -->
+  <section>
+    <h2 class="text-xl font-semibold mb-2">PP-YOLO</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <video src="Videos/PPyoloim1-converted.mp4" autoplay loop muted></video>
+      <video src="Videos/PPyoloim2-converted.mp4" autoplay loop muted></video>
+      <video src="Videos/PPyoloim3-converted.mp4" autoplay loop muted></video>
+      <video src="Videos/PPyoloim4-converted.mp4" autoplay loop muted></video>
+    </div>
+  </section>
+
+  <!-- Link to External JS -->
+  <script src="script.js"></script>
+</body>
+</html>
