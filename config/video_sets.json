@@ -1,0 +1,59 @@
+[
+    {
+      "group": "All Outputs",
+      "videos": [
+        {
+          "label": "Raw input",
+          "config": "Full video",
+          "file": "videos/all.mp4"
+        },
+        {
+          "label": "NanoDet",
+          "config": "Full video",
+          "file": "videos/nanoall.mp4"
+        },
+        {
+          "label": "PP-YOLO",
+          "config": "Full video",
+          "file": "videos/PPYoloall.mp4"
+        }
+      ]
+    },
+    {
+      "group": "Input 1 (im1)",
+      "videos": [
+        { "label": "im1", "config": "Raw input", "file": "videos/im1.mp4" },
+        { "label": "NanoDet", "config": "Output on im1", "file": "videos/nanoim1.mp4" },
+        { "label": "PP-YOLO", "config": "Output on im1", "file": "videos/PPyoloim1.mp4" },
+        { "label": "SSD", "config": "Output on im1", "file": "videos/SSDim1.mp4" }
+      ]
+    },
+    {
+      "group": "Input 2 (im2)",
+      "videos": [
+        { "label": "im2", "config": "Raw input", "file": "videos/im2.mp4" },
+        { "label": "NanoDet", "config": "Output on im2", "file": "videos/nanoim2.mp4" },
+        { "label": "PP-YOLO", "config": "Output on im2", "file": "videos/PPyoloim2.mp4" },
+        { "label": "SSD", "config": "Output on im2", "file": "videos/SSDim2.mp4" }
+      ]
+    },
+    {
+      "group": "Input 3 (im3)",
+      "videos": [
+        { "label": "im3", "config": "Raw input", "file": "videos/im3.mp4" },
+        { "label": "NanoDet", "config": "Output on im3", "file": "videos/nanoim3.mp4" },
+        { "label": "PP-YOLO", "config": "Output on im3", "file": "videos/PPyoloim3.mp4" },
+        { "label": "SSD", "config": "Output on im3", "file": "videos/SSDim3.mp4" }
+      ]
+    },
+    {
+      "group": "Input 4 (im4)",
+      "videos": [
+        { "label": "im4", "config": "Raw input", "file": "videos/im4.mp4" },
+        { "label": "NanoDet", "config": "Output on im4", "file": "videos/nanoim4.mp4" },
+        { "label": "PP-YOLO", "config": "Output on im4", "file": "videos/PPyoloim4.mp4" },
+        { "label": "SSD", "config": "Output on im4", "file": "videos/SSDim4.mp4" }
+      ]
+    }
+  ]
+  
