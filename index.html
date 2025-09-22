@@ -2,94 +2,91 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Video Comparison Viewer</title>
+  <title>MobilTelesco Analysis Viewer</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <style>
-    video {
+    video, img {
       width: 100%;
       max-height: 320px;
       object-fit: contain;
-      background-color: black;
+      background-color: #e6f3ef; /* Very light mint green for media background */
+    }
+    h1 {
+      color: #a8e6cf; /* Soft mint green accent */
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
     }
     h2 {
+      color: #2b2b2b; /* Dark gray for contrast */
       margin-top: 2rem;
+      text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.05);
+    }
+    .section-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .comparison-item {
+      background-color: #d4f7e6; /* Lighter mint green */
+      padding: 0.5rem;
+      border-radius: 0.375rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .comparison-item h3 {
+      color: #a8e6cf;
+      font-size: 1.125rem;
+      margin-bottom: 0.5rem;
     }
   </style>
 </head>
-<body class="bg-gray-100 p-4">
+<body class="bg-white p-4 text-gray-800">
 
   <!-- Sticky Control Bar -->
-  <div class="sticky top-0 bg-white shadow-md z-10 p-4 flex flex-col sm:flex-row items-center gap-4 justify-center mb-6">
-    <button id="playAll" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">Play All</button>
+  <div class="sticky top-0 bg-mint-100 shadow-md z-10 p-4 flex flex-col sm:flex-row items-center gap-4 justify-center mb-6">
+    <button id="playAll" class="bg-mint-500 hover:bg-mint-600 text-white px-4 py-2 rounded">Play All</button>
     <button id="pauseAll" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Pause All</button>
     <div class="flex items-center gap-2 w-64">
-      <label for="globalSpeed" class="whitespace-nowrap">Speed:</label>
+      <label for="globalSpeed" class="whitespace-nowrap text-gray-700">Speed:</label>
       <input type="range" id="globalSpeed" min="0.25" max="2" step="0.25" value="1" class="w-full">
     </div>
   </div>
 
-  <h1 class="text-3xl font-bold mb-6 text-center">Model Output Comparison</h1>
+  <h1 class="text-4xl font-bold mb-8 text-center">MobilTelesco Analysis Hub</h1>
 
-  <!-- Multi Scene Section -->
+  <!-- Detection Results Section -->
   <section>
-    <h2 class="text-xl font-semibold mb-2">Multi Scene</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    <h2 class="text-2xl font-semibold mb-4">Detection Results</h2>
+    <div class="section-grid">
       <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/aa420be73c22d9f1428e4bcda331c7e494036f20/videos/all-converted.mp4" autoplay loop muted></video>
       <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/1353e077a3b8db4f55550d05f2029694223a24c4/videos/nanoall-converted.mp4" autoplay loop muted></video>
       <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/1353e077a3b8db4f55550d05f2029694223a24c4/videos/PPYoloall-converted.mp4" autoplay loop muted></video>
       <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/481dbdb970b6acb3b486a553f5c15d0387d3d0e3/videos/srcnnall.mp4" autoplay loop muted></video>
     </div>
-  </section>
-
-  <!-- Input Section -->
-  <section>
-    <h2 class="text-xl font-semibold mb-2">Input</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-      <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/1353e077a3b8db4f55550d05f2029694223a24c4/videos/im1.mp4" autoplay loop muted></video>
-      <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/1353e077a3b8db4f55550d05f2029694223a24c4/videos/im2.mp4" autoplay loop muted></video>
-      <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/1353e077a3b8db4f55550d05f2029694223a24c4/videos/im3.mp4" autoplay loop muted></video>
-      <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/1353e077a3b8db4f55550d05f2029694223a24c4/videos/im4.mp4" autoplay loop muted></video>
-    </div>
-  </section>
-
-  <!-- SSD Section -->
-  <section>
-    <h2 class="text-xl font-semibold mb-2">SSD</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    <div class="section-grid mt-4">
       <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/1353e077a3b8db4f55550d05f2029694223a24c4/videos/SSDim1.mp4" autoplay loop muted></video>
       <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/1353e077a3b8db4f55550d05f2029694223a24c4/videos/SSDim2.mp4" autoplay loop muted></video>
       <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/1353e077a3b8db4f55550d05f2029694223a24c4/videos/SSDim3.mp4" autoplay loop muted></video>
       <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/1353e077a3b8db4f55550d05f2029694223a24c4/videos/SSDim4.mp4" autoplay loop muted></video>
     </div>
-  </section>
-
-  <!-- NanoDet Section -->
-  <section>
-    <h2 class="text-xl font-semibold mb-2">NanoDet</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    <div class="section-grid mt-4">
       <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/1353e077a3b8db4f55550d05f2029694223a24c4/videos/nanoim1-converted.mp4" autoplay loop muted></video>
       <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/1353e077a3b8db4f55550d05f2029694223a24c4/videos/nanoim2-converted.mp4" autoplay loop muted></video>
       <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/1353e077a3b8db4f55550d05f2029694223a24c4/videos/nanoim3-converted.mp4" autoplay loop muted></video>
       <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/1353e077a3b8db4f55550d05f2029694223a24c4/videos/nanoim4-converted.mp4" autoplay loop muted></video>
     </div>
-  </section>
-
-  <!-- PP-YOLO Section -->
-  <section>
-    <h2 class="text-xl font-semibold mb-2">PP-YOLO</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    <div class="section-grid mt-4">
       <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/1353e077a3b8db4f55550d05f2029694223a24c4/videos/PPyoloim1-converted.mp4" autoplay loop muted></video>
       <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/1353e077a3b8db4f55550d05f2029694223a24c4/videos/PPyoloim2-converted.mp4" autoplay loop muted></video>
       <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/1353e077a3b8db4f55550d05f2029694223a24c4/videos/PPyoloim3-converted.mp4" autoplay loop muted></video>
       <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/1353e077a3b8db4f55550d05f2029694223a24c4/videos/PPyoloim4-converted.mp4" autoplay loop muted></video>
     </div>
-  </section>
-
-    <!-- sPARSE rcnn Section -->
-  <section>
-    <h2 class="text-xl font-semibold mb-2">Sparse RCNN</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    <div class="section-grid mt-4">
       <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/03447ac3f5aadb147e11002579640b24bf2bef9d/videos/srcnn-im1-converted.mp4" autoplay loop muted></video>
       <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/6ac9f164fe962fdc1851a47d176cb3bb649f86f5/videos/srcnn-im2-converted.mp4" autoplay loop muted></video>
       <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/6ac9f164fe962fdc1851a47d176cb3bb649f86f5/videos/srcnn-im3-converted.mp4" autoplay loop muted></video>
@@ -97,7 +94,62 @@
     </div>
   </section>
 
-  <!-- Link to External JS -->
+  <!-- Ground Truth Videos Section -->
+  <section>
+    <h2 class="text-2xl font-semibold mb-4">Ground Truth Videos</h2>
+    <div class="section-grid">
+      <video src="gt_jupiter.mp4" autoplay loop muted title="Jupiter"></video>
+      <video src="gt_mars.mp4" autoplay loop muted title="Mars"></video>
+      <video src="gt_saturn.mp4" autoplay loop muted title="Saturn"></video>
+      <video src="gt_venus.mp4" autoplay loop muted title="Venus"></video>
+      <video src="gt_mercury.mp4" autoplay loop muted title="Mercury"></video>
+      <video src="gt_earth.mp4" autoplay loop muted title="Earth"></video>
+      <video src="gt_uranus.mp4" autoplay loop muted title="Uranus"></video>
+      <video src="gt_neptune.mp4" autoplay loop muted title="Neptune"></video>
+    </div>
+  </section>
+
+  <!-- MobilTelesco GIFs Section -->
+  <section>
+    <h2 class="text-2xl font-semibold mb-4">MobilTelesco GIFs</h2>
+    <div class="section-grid">
+      <img src="mt_gif1.gif" alt="MobilTelesco GIF 1" loop>
+      <img src="mt_gif2.gif" alt="MobilTelesco GIF 2" loop>
+      <img src="mt_gif3.gif" alt="MobilTelesco GIF 3" loop>
+      <img src="mt_gif4.gif" alt="MobilTelesco GIF 4" loop>
+      <img src="mt_gif5.gif" alt="MobilTelesco GIF 5" loop>
+      <img src="mt_gif6.gif" alt="MobilTelesco GIF 6" loop>
+      <img src="mt_gif7.gif" alt="MobilTelesco GIF 7" loop>
+      <img src="mt_gif8.gif" alt="MobilTelesco GIF 8" loop>
+    </div>
+  </section>
+
+  <!-- Inferred Results Comparison Section -->
+  <section>
+    <h2 class="text-2xl font-semibold mb-4">Inferred Results Comparison</h2>
+    <div class="comparison-grid">
+      <div class="comparison-item">
+        <h3>Ground Truth</h3>
+        <video src="gt_jupiter.mp4" autoplay loop muted></video>
+        <video src="gt_mars.mp4" autoplay loop muted></video>
+        <video src="gt_saturn.mp4" autoplay loop muted></video>
+      </div>
+      <div class="comparison-item">
+        <h3>MobilTelesco Input</h3>
+        <video src="mt_input1.mp4" autoplay loop muted></video>
+        <video src="mt_input2.mp4" autoplay loop muted></video>
+        <video src="mt_input3.mp4" autoplay loop muted></video>
+      </div>
+      <div class="comparison-item">
+        <h3>Inferred Output</h3>
+        <video src="inferred_jupiter.mp4" autoplay loop muted></video>
+        <video src="inferred_mars.mp4" autoplay loop muted></video>
+        <video src="inferred_saturn.mp4" autoplay loop muted></video>
+      </div>
+    </div>
+    <!-- Additional rows can be dynamically added with more objects -->
+  </section>
+
   <script src="script.js"></script>
 </body>
 </html>
