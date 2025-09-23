@@ -43,6 +43,31 @@
       font-size: 1.125rem;
       margin-bottom: 0.5rem;
     }
+    .tabs {
+      display: flex;
+      width: 100%;
+      background-color: #d4f7e6;
+      margin-bottom: 1rem;
+    }
+    .tab {
+      flex: 1;
+      padding: 0.5rem 1rem;
+      text-align: center;
+      cursor: pointer;
+      color: #2b2b2b;
+      background-color: #e6f3ef;
+      border: 1px solid #a8e6cf;
+    }
+    .tab.active {
+      background-color: #a8e6cf;
+      color: #ffffff;
+    }
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
   </style>
 </head>
 <body class="bg-white p-4 text-gray-800">
@@ -59,40 +84,100 @@
 
   <h1 class="text-4xl font-bold mb-8 text-center">MobilTelesco Analysis Hub</h1>
 
+  <!-- Tab Navigation -->
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab('detection')">Detection</div>
+    <div class="tab" onclick="switchTab('segmentation')">Segmentation</div>
+    <div class="tab" onclick="switchTab('generative')">Generative</div>
+  </div>
+
   <!-- Detection Results Section -->
-  <section>
-    <h2 class="text-2xl font-semibold mb-4">Detection Results</h2>
-    <div class="section-grid">
-      <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/aa420be73c22d9f1428e4bcda331c7e494036f20/videos/all-converted.mp4" autoplay loop muted></video>
-      <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/1353e077a3b8db4f55550d05f2029694223a24c4/videos/nanoall-converted.mp4" autoplay loop muted></video>
-      <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/1353e077a3b8db4f55550d05f2029694223a24c4/videos/PPYoloall-converted.mp4" autoplay loop muted></video>
-      <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/481dbdb970b6acb3b486a553f5c15d0387d3d0e3/videos/srcnnall.mp4" autoplay loop muted></video>
-    </div>
-    <div class="section-grid mt-4">
-      <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/1353e077a3b8db4f55550d05f2029694223a24c4/videos/SSDim1.mp4" autoplay loop muted></video>
-      <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/1353e077a3b8db4f55550d05f2029694223a24c4/videos/SSDim2.mp4" autoplay loop muted></video>
-      <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/1353e077a3b8db4f55550d05f2029694223a24c4/videos/SSDim3.mp4" autoplay loop muted></video>
-      <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/1353e077a3b8db4f55550d05f2029694223a24c4/videos/SSDim4.mp4" autoplay loop muted></video>
-    </div>
-    <div class="section-grid mt-4">
-      <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/1353e077a3b8db4f55550d05f2029694223a24c4/videos/nanoim1-converted.mp4" autoplay loop muted></video>
-      <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/1353e077a3b8db4f55550d05f2029694223a24c4/videos/nanoim2-converted.mp4" autoplay loop muted></video>
-      <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/1353e077a3b8db4f55550d05f2029694223a24c4/videos/nanoim3-converted.mp4" autoplay loop muted></video>
-      <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/1353e077a3b8db4f55550d05f2029694223a24c4/videos/nanoim4-converted.mp4" autoplay loop muted></video>
-    </div>
-    <div class="section-grid mt-4">
-      <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/1353e077a3b8db4f55550d05f2029694223a24c4/videos/PPyoloim1-converted.mp4" autoplay loop muted></video>
-      <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/1353e077a3b8db4f55550d05f2029694223a24c4/videos/PPyoloim2-converted.mp4" autoplay loop muted></video>
-      <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/1353e077a3b8db4f55550d05f2029694223a24c4/videos/PPyoloim3-converted.mp4" autoplay loop muted></video>
-      <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/1353e077a3b8db4f55550d05f2029694223a24c4/videos/PPyoloim4-converted.mp4" autoplay loop muted></video>
-    </div>
-    <div class="section-grid mt-4">
-      <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/03447ac3f5aadb147e11002579640b24bf2bef9d/videos/srcnn-im1-converted.mp4" autoplay loop muted></video>
-      <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/6ac9f164fe962fdc1851a47d176cb3bb649f86f5/videos/srcnn-im2-converted.mp4" autoplay loop muted></video>
-      <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/6ac9f164fe962fdc1851a47d176cb3bb649f86f5/videos/srcnn-im3-converted.mp4" autoplay loop muted></video>
-      <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/6ac9f164fe962fdc1851a47d176cb3bb649f86f5/videos/srcnn-im4-converted.mp4" autoplay loop muted></video>
-    </div>
-  </section>
+  <div id="detection-tab" class="tab-content active">
+    <section>
+      <h2 class="text-2xl font-semibold mb-4">Detection Results</h2>
+      <div class="section-grid">
+        <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/aa420be73c22d9f1428e4bcda331c7e494036f20/videos/all-converted.mp4" autoplay loop muted></video>
+        <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/1353e077a3b8db4f55550d05f2029694223a24c4/videos/nanoall-converted.mp4" autoplay loop muted></video>
+        <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/1353e077a3b8db4f55550d05f2029694223a24c4/videos/PPYoloall-converted.mp4" autoplay loop muted></video>
+        <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/481dbdb970b6acb3b486a553f5c15d0387d3d0e3/videos/srcnnall.mp4" autoplay loop muted></video>
+      </div>
+      <div class="section-grid mt-4">
+        <h3 class="text-lg font-medium text-center" style="grid-column: 1 / -1;">SSD300</h3>
+        <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/1353e077a3b8db4f55550d05f2029694223a24c4/videos/SSDim1.mp4" autoplay loop muted></video>
+        <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/1353e077a3b8db4f55550d05f2029694223a24c4/videos/SSDim2.mp4" autoplay loop muted></video>
+        <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/1353e077a3b8db4f55550d05f2029694223a24c4/videos/SSDim3.mp4" autoplay loop muted></video>
+        <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/1353e077a3b8db4f55550d05f2029694223a24c4/videos/SSDim4.mp4" autoplay loop muted></video>
+      </div>
+      <div class="section-grid mt-4">
+        <h3 class="text-lg font-medium text-center" style="grid-column: 1 / -1;">FasterRCNN</h3>
+        <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/1353e077a3b8db4f55550d05f2029694223a24c4/videos/nanoim1-converted.mp4" autoplay loop muted></video>
+        <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/1353e077a3b8db4f55550d05f2029694223a24c4/videos/nanoim2-converted.mp4" autoplay loop muted></video>
+        <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/1353e077a3b8db4f55550d05f2029694223a24c4/videos/nanoim3-converted.mp4" autoplay loop muted></video>
+        <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/1353e077a3b8db4f55550d05f2029694223a24c4/videos/nanoim4-converted.mp4" autoplay loop muted></video>
+      </div>
+      <div class="section-grid mt-4">
+        <h3 class="text-lg font-medium text-center" style="grid-column: 1 / -1;">NanoDet</h3>
+        <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/1353e077a3b8db4f55550d05f2029694223a24c4/videos/PPyoloim1-converted.mp4" autoplay loop muted></video>
+        <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/1353e077a3b8db4f55550d05f2029694223a24c4/videos/PPyoloim2-converted.mp4" autoplay loop muted></video>
+        <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/1353e077a3b8db4f55550d05f2029694223a24c4/videos/PPyoloim3-converted.mp4" autoplay loop muted></video>
+        <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/1353e077a3b8db4f55550d05f2029694223a24c4/videos/PPyoloim4-converted.mp4" autoplay loop muted></video>
+      </div>
+      <div class="section-grid mt-4">
+        <h3 class="text-lg font-medium text-center" style="grid-column: 1 / -1;">Sparse RCNN</h3>
+        <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/03447ac3f5aadb147e11002579640b24bf2bef9d/videos/srcnn-im1-converted.mp4" autoplay loop muted></video>
+        <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/6ac9f164fe962fdc1851a47d176cb3bb649f86f5/videos/srcnn-im2-converted.mp4" autoplay loop muted></video>
+        <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/6ac9f164fe962fdc1851a47d176cb3bb649f86f5/videos/srcnn-im3-converted.mp4" autoplay loop muted></video>
+        <video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/6ac9f164fe962fdc1851a47d176cb3bb649f86f5/videos/srcnn-im4-converted.mp4" autoplay loop muted></video>
+      </div>
+    </section>
+  </div>
+
+  <!-- Segmentation Results Section -->
+  <div id="segmentation-tab" class="tab-content">
+    <section>
+      <h2 class="text-2xl font-semibold mb-4">Segmentation Results</h2>
+      <p class="text-center text-lg">Coming Soon</p>
+    </section>
+  </div>
+
+  <!-- Generative Results Section -->
+  <div id="generative-tab" class="tab-content">
+    <section>
+      <h2 class="text-2xl font-semibold mb-4">Generative Results</h2>
+      <div class="section-grid">
+        <video src="gen_video1.mp4" autoplay loop muted title="Generative 1"></video>
+        <video src="gen_video2.mp4" autoplay loop muted title="Generative 2"></video>
+        <video src="gen_video3.mp4" autoplay loop muted title="Generative 3"></video>
+        <video src="gen_video4.mp4" autoplay loop muted title="Generative 4"></video>
+      </div>
+      <div class="section-grid mt-4">
+        <img src="mt_gif1.gif" alt="MobilTelesco GIF 1" loop>
+        <img src="mt_gif2.gif" alt="MobilTelesco GIF 2" loop>
+        <img src="mt_gif3.gif" alt="MobilTelesco GIF 3" loop>
+        <img src="mt_gif4.gif" alt="MobilTelesco GIF 4" loop>
+      </div>
+      <div class="section-grid mt-4">
+        <div class="comparison-item">
+          <h3>Ground Truth</h3>
+          <video src="gt_jupiter.mp4" autoplay loop muted></video>
+          <video src="gt_mars.mp4" autoplay loop muted></video>
+          <video src="gt_saturn.mp4" autoplay loop muted></video>
+        </div>
+        <div class="comparison-item">
+          <h3>MobilTelesco Input</h3>
+          <video src="mt_input1.mp4" autoplay loop muted></video>
+          <video src="mt_input2.mp4" autoplay loop muted></video>
+          <video src="mt_input3.mp4" autoplay loop muted></video>
+        </div>
+        <div class="comparison-item">
+          <h3>Inferred Output</h3>
+          <video src="inferred_jupiter.mp4" autoplay loop muted></video>
+          <video src="inferred_mars.mp4" autoplay loop muted></video>
+          <video src="inferred_saturn.mp4" autoplay loop muted></video>
+        </div>
+      </div>
+    </section>
+  </div>
 
   <!-- Ground Truth Videos Section -->
   <section>
@@ -109,47 +194,15 @@
     </div>
   </section>
 
-  <!-- MobilTelesco GIFs Section -->
-  <section>
-    <h2 class="text-2xl font-semibold mb-4">MobilTelesco GIFs</h2>
-    <div class="section-grid">
-      <img src="mt_gif1.gif" alt="MobilTelesco GIF 1" loop>
-      <img src="mt_gif2.gif" alt="MobilTelesco GIF 2" loop>
-      <img src="mt_gif3.gif" alt="MobilTelesco GIF 3" loop>
-      <img src="mt_gif4.gif" alt="MobilTelesco GIF 4" loop>
-      <img src="mt_gif5.gif" alt="MobilTelesco GIF 5" loop>
-      <img src="mt_gif6.gif" alt="MobilTelesco GIF 6" loop>
-      <img src="mt_gif7.gif" alt="MobilTelesco GIF 7" loop>
-      <img src="mt_gif8.gif" alt="MobilTelesco GIF 8" loop>
-    </div>
-  </section>
-
-  <!-- Inferred Results Comparison Section -->
-  <section>
-    <h2 class="text-2xl font-semibold mb-4">Inferred Results Comparison</h2>
-    <div class="comparison-grid">
-      <div class="comparison-item">
-        <h3>Ground Truth</h3>
-        <video src="gt_jupiter.mp4" autoplay loop muted></video>
-        <video src="gt_mars.mp4" autoplay loop muted></video>
-        <video src="gt_saturn.mp4" autoplay loop muted></video>
-      </div>
-      <div class="comparison-item">
-        <h3>MobilTelesco Input</h3>
-        <video src="mt_input1.mp4" autoplay loop muted></video>
-        <video src="mt_input2.mp4" autoplay loop muted></video>
-        <video src="mt_input3.mp4" autoplay loop muted></video>
-      </div>
-      <div class="comparison-item">
-        <h3>Inferred Output</h3>
-        <video src="inferred_jupiter.mp4" autoplay loop muted></video>
-        <video src="inferred_mars.mp4" autoplay loop muted></video>
-        <video src="inferred_saturn.mp4" autoplay loop muted></video>
-      </div>
-    </div>
-    <!-- Additional rows can be dynamically added with more objects -->
-  </section>
-
   <script src="script.js"></script>
-</body>
-</html>
+  <script>
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+      document.querySelector(`.tab[onclick="switchTab('${tabId}')"]`).classList.add('active');
+      document.getElementById(`${tabId}-tab`).classList.add('active');
+    }
+
+    // Initialize with Detection as default
+    switchTab('detection');
+  </script>
