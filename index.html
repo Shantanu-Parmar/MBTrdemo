@@ -296,7 +296,7 @@
 
     // STL Loader
     const loader = new THREE.STLLoader();
-    loader.load('mbtr.stl', (geometry) => {
+    loader.load('https://raw.githubusercontent.com/Shantanu909/MBTrdemo/ae395c03fbeaf8638e331084c0d1fb10c2986795/mbtr.stl', (geometry) => {
       const material = new THREE.MeshPhongMaterial({ color: 0xa8e6cf, specular: 0x111111, shininess: 100 });
       const mesh = new THREE.Mesh(geometry, material);
       scene.add(mesh);
@@ -315,4 +315,5 @@
   </script>
 </body>
 </html>
+
 
