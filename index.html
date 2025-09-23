@@ -5,6 +5,7 @@
   <title>MobilTelesco - Astrophotography Innovation</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <style>
     body {
       font-family: 'Arial', sans-serif;
@@ -74,7 +75,7 @@
     }
     .comparison-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(4, 1fr);
       gap: 1.5rem;
       margin-top: 1rem;
     }
@@ -84,7 +85,10 @@
       border-radius: 0.5rem;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       text-align: center;
-      height: 400px;
+      height: 320px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .comparison-item h3 {
       color: #2b2b2b;
@@ -139,7 +143,7 @@
 <body>
   <!-- Header with Logo -->
   <div class="header">
-    <img src="placeholder-logo.png" alt="MobilTelesco Logo" class="logo">
+    <img src="Mbtr.png" alt="MobilTelesco Logo" class="logo">
     <nav>
       <a href="#demos" class="text-blue-600 hover:text-blue-800 ml-4">Demos</a>
     </nav>
@@ -151,13 +155,13 @@
     <p class="text-lg mt-4">MobilTelesco is an open-access dataset capturing the beauty of the night sky using affordable smartphone setups. This project demonstrates how modern consumer devices, paired with basic stabilization and long-exposure apps, can democratize astronomical observation and fuel citizen-led research and machine learning innovations. Accepted at CAIP 2025, our work in “Evaluating Deep Learning Models on Smartphone-Based Astrophotography” showcases the potential of this dataset.</p>
     <p class="text-md mt-2">Explore a universe captured with minimal budget, no professional telescope, and a passion for open-source science. From stars and constellations to the Milky Way, MobilTelesco invites you to contribute to accessible astronomy.</p>
     <div class="canvas-container" id="3dCanvas">
-      <canvas id="renderCanvas"></canvas> <!-- Added canvas element -->
+      <canvas id="renderCanvas"></canvas>
     </div>
     <p class="text-sm mt-2 italic">"A telescope in your pocket. The universe on your screen."</p>
   </div>
 
   <!-- Demos Tab Section -->
-  <div class="container mx-auto py-8">
+  <div class="container mx-auto py-8" id="demos">
     <h2 class="text-3xl font-bold text-center mb-6">Demos</h2>
     <div class="tabs">
       <div class="tab active" onclick="switchTab('detection')">Detection</div>
@@ -213,8 +217,8 @@
         <p class="text-center text-lg">Coming Soon</p>
       </section>
     </div>
-    
-<!-- Generative Results Section -->
+
+    <!-- Generative Results Section -->
     <div id="generative-tab" class="tab-content">
       <section>
         <h2 class="text-2xl font-semibold mb-4">Generative Results</h2>
@@ -225,7 +229,6 @@
           <div class="comparison-item"><h3>StrCGAN Inference</h3></div>
           <div class="comparison-item">Aldebaran</div>
           <div class="comparison-item"><video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/f271888d0d1660762551a0425cebf4e21fdf4192/videos/Aug-Ground-Aldebaran.mp4" autoplay loop muted style="height: 100%; width: auto;"></video></div>
-          <div class="comparison-item"><video src="" autoplay loop muted style="height: 100%; width: auto;"></video></div>
           <div class="comparison-item"><video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/f271888d0d1660762551a0425cebf4e21fdf4192/videos/Aldebaran-mbtr-raw.mp4" autoplay loop muted style="height: 100%; width: auto;"></video></div>
           <div class="comparison-item"><video src="https://raw.githubusercontent.com/Shantanu909/MBTrdemo/f271888d0d1660762551a0425cebf4e21fdf4192/videos/Aldebaran_inf.mp4" autoplay loop muted style="height: 100%; width: auto;"></video></div>
           <div class="comparison-item">Bellatrix</div>
@@ -255,7 +258,8 @@
         </div>
       </section>
     </div>
-    
+  </div>
+
   <!-- Footer -->
   <div class="footer">
     <p class="text-sm">© 2025 MobilTelesco. All rights reserved. Licensed under CC BY 4.0.</p>
@@ -266,7 +270,6 @@
     <p class="text-sm mt-2">Contact: <a href="mailto:shantanu.c.parmar@gmail.com" class="text-blue-600">shantanu.c.parmar@gmail.com</a> | Website: <a href="https://shantanu-parmar.github.io/" class="text-blue-600">shantanu-parmar.github.io</a></p>
   </div>
 
-  <script src="script.js"></script>
   <script>
     function switchTab(tabId) {
       document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
@@ -278,22 +281,37 @@
     // Initialize with Detection as default
     switchTab('detection');
 
-    // Updated 3D canvas rendering
-    const canvas = document.getElementById('renderCanvas'); // Reference the canvas element
-    const ctx = canvas.getContext('2d');
-    let angle = 0;
+    // 3D rendering with Three.js and STL loading
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, 600 / 400, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('renderCanvas'), antialias: true });
+    renderer.setSize(600, 400);
+    camera.position.z = 5;
 
-    function draw3DObject() {
-      if (!ctx) return; // Safety check
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = '#a8e6cf';
-      ctx.beginPath();
-      ctx.arc(canvas.width / 2 + Math.sin(angle) * 50, canvas.height / 2 + Math.cos(angle) * 50, 40, 0, Math.PI * 2);
-      ctx.fill();
-      angle += 0.05;
-      requestAnimationFrame(draw3DObject);
-    }
-    draw3DObject();
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+    scene.add(ambientLight);
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
+    directionalLight.position.set(0, 1, 1);
+    scene.add(directionalLight);
+
+    // STL Loader
+    const loader = new THREE.STLLoader();
+    loader.load('mbtr.stl', (geometry) => {
+      const material = new THREE.MeshPhongMaterial({ color: 0xa8e6cf, specular: 0x111111, shininess: 100 });
+      const mesh = new THREE.Mesh(geometry, material);
+      scene.add(mesh);
+      geometry.computeBoundingBox();
+      const center = geometry.boundingBox.getCenter(new THREE.Vector3());
+      mesh.position.sub(center);
+      function animate() {
+        requestAnimationFrame(animate);
+        mesh.rotation.y += 0.01;
+        renderer.render(scene, camera);
+      }
+      animate();
+    }, undefined, (error) => {
+      console.error('Error loading STL file:', error);
+    });
   </script>
-
-
+</body>
+</html>
